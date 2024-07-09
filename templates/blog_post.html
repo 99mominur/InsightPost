@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content%}
 
-<form action="/" method="post" enctype="multipart/form-data" name="content">
+<form  method="POST" enctype="multipart/form-data" name="content">
   {% csrf_token %} 
   {{ form.media }}
   {{ form.as_p }}
