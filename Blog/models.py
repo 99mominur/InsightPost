@@ -1,10 +1,12 @@
 from django.db import models
 from .utils import slugfy_title
 from froala_editor.fields import FroalaField
+from django.contrib.auth.models import User
 # Create your models here.
 
 
 class BlogPost(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     body = FroalaField()
     image = models.ImageField(upload_to="Images/blog_images")

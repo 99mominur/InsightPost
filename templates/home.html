@@ -1,8 +1,29 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% block content %} 
+{%if message%} 
+{{message}}
+{%endif%}
+
+<h3>hello {{request.user}}, welcome to the InsightPost!</h3>
+
 <div class="btn">
   <a href="post">Blog post</a>
 </div>
 <div class="btn">
   <a href="list">Blog list</a>
 </div>
-{%endblock%}
+{% if user.is_authenticated %}
+<div class="btn">
+  <a href="logout">Logout</a>
+</div>
+
+<div class="btn btn-warning">pass_update</div>
+
+{%else%}
+
+<div class="btn">
+  <a href="register">Registration</a>
+</div>
+<div class="btn">
+  <a href="login">Login</a>
+</div>
+{%endif%} {%endblock%}
