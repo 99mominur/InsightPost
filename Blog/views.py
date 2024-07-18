@@ -1,3 +1,5 @@
+from django.http import HttpRequest
+from django.http.response import HttpResponse as HttpResponse
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from .forms import BlogPostForm, RegistrationForm, UserLoginForm
@@ -45,7 +47,6 @@ class RegistrationView(CreateView):
 class UserLoginView(LoginView):
     template_name = "login.html"
     form_class = UserLoginForm
-    
 
     def get(self, request):
         form = self.form_class()
@@ -77,12 +78,10 @@ class UserLogoutView(LoginRequiredMixin, LogoutView):
         return redirect(self.next_page)
 
 
-class PasswordUpdateView(UpdateView):
-    model = User
-    form_class = RegistrationForm
-    template_name = "blog_update.html"
-    # fields = ['title', 'body', 'image']
-    success_url = "/"
+
+
+
+
 
 
 class BlogHomeView(TemplateView):
@@ -90,10 +89,12 @@ class BlogHomeView(TemplateView):
 
     def get(self, request):
         context = {"user": request.user}
+        blogs = BlogPost.objects.all()
+        context['blogs'] = blogs
         return render(request, self.template_name, context=context)
 
 
-class BlogPostView(CreateView):
+class BlogPostView(LoginRequiredMixin, CreateView):
     form_class = BlogPostForm
     model = BlogPost
     template_name = "blog_post.html"
@@ -120,9 +121,9 @@ class BlogListView(ListView):
     template_name = "blog_list.html"
     context_object_name = "blogs"
     ordering = ["created_at"]
-    
+
     def get(self, request):
-        blogs = BlogPost.objects.filter(user = request.user)
+        blogs = BlogPost.objects.filter(user=request.user)
         return render(request, self.template_name, {"blogs": blogs})
 
 

@@ -1,10 +1,27 @@
 {% extends "base.html" %} {% block content %}
-<form
-  method="post"
-  enctype="multipart/form-data"
->
-  {% csrf_token %} {{ form.media }} {{ form.as_p }}
-  <input type="submit" value="Submit" />
-</form>
+<div class="container-md bg-dark text-light rounded p-3">
+  
+  <form  method="POST" enctype="multipart/form-data" name="content">
+    {% csrf_token %} 
+    {{ form.media }}
+    
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Title</label>
+      <span class="form-control">{{form.title}}</span>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Blog Content</label>
+      <span class="form-control" id="exampleFormControlTextarea1" rows="3">{{form.body}}</span>
+    </div>
+    <div class="mb-3">
+      <label for="formFile" class="form-label">Input a Thumbnail</label>
+      <span class="form-control">{{form.image}}</span>
+    </div>
+    <input class="btn btn-success" type="submit" value="Submit" />
+  </form>
+</div>
+<br>
+<br>
+<br>
 
 {%endblock%}

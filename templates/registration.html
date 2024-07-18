@@ -1,10 +1,38 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit" />
-</form>
+<div class="container-md">
+    <div class="card m-3">
+        {%if messages %}
+          {%for message in messages%}
+          <p class="text-danger">{{message}}</p>
+          {%endfor%}
+          {%endif%}
+    </div>
+  <div class="card">
+    <div class="card-body bg-dark text-light">
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label"> Username </label>
+          <span class="form.control">{{form.username}}</span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label"> Email</label>
+          <span class="form.control">{{form.email}}</span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label"> Password</label>
+          <span class="form.control">{{form.password1}}</span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label"> Confirm Password</label>
+          <span class="form.control">{{form.password2}}</span>
+        </div>
+
+        <input class="btn btn-success" type="submit" value="Submit" />
+      </form>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

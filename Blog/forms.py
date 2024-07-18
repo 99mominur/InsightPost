@@ -8,6 +8,12 @@ from django.contrib.auth import authenticate, login, logout
 
 
 class BlogPostForm(ModelForm):
+    title = forms.CharField(
+        max_length=254,
+        help_text="Required. 254 characters or fewer. Letters, digits and @/./+/-/_ only.",
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+    )
+
     class Meta:
         model = BlogPost
         fields = ["title", "body", "image"]
@@ -18,18 +24,26 @@ class RegistrationForm(UserCreationForm, forms.Form):
     username = forms.CharField(
         max_length=254,
         help_text="Required. 254 characters or fewer. Letters, digits and @/./+/-/_ only.",
-        widget=forms.TextInput(attrs={"placeholder": "Username"}),
+        widget=forms.TextInput(
+            attrs={"placeholder": "Username", "class": "form-control"}
+        ),
     )
     email = forms.EmailField(
         max_length=254,
         help_text="Required. Inform a valid email address.",
-        widget=forms.EmailInput(attrs={"placeholder": "Email"}),
+        widget=forms.EmailInput(
+            attrs={"placeholder": "Email", "class": "form-control"}
+        ),
     )
     password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
+        widget=forms.PasswordInput(
+            attrs={"placeholder": "Password", "class": "form-control"}
+        )
     )
     password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "confirm password"})
+        widget=forms.PasswordInput(
+            attrs={"placeholder": "confirm password", "class": "form-control"}
+        )
     )
 
     class Meta:
@@ -56,15 +70,21 @@ class RegistrationForm(UserCreationForm, forms.Form):
             raise forms.ValidationError("Email already exists")
         return self.cleaned_data
 
+
 class UserLoginForm(forms.Form):
     username = forms.CharField(
         max_length=254,
         help_text="Required. 254 characters or fewer. Letters, digits and @/./+/-/_ only.",
-        widget=forms.TextInput(attrs={"placeholder": "Username"}),
+        widget=forms.TextInput(
+            attrs={"placeholder": "Username", "class": "form-control"}
+        ),
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
+        widget=forms.PasswordInput(
+            attrs={"placeholder": "Password", "class": "form-control"}
+        )
     )
+
     class Meta:
         model = User
         fields = ("username", "password")
@@ -72,4 +92,3 @@ class UserLoginForm(forms.Form):
             "username": "Username",
             "password": "Password",
         }
-    

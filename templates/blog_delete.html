@@ -1,11 +1,19 @@
 {% extends "base.html" %} {% block content %}
 
-<form method="post">
-  {% csrf_token %}
-
-  <p>Are you sure you want to delete "{{ object }}"?</p>
-  <input type="button" value="Cancel" onclick="window.history.back()" />
-  <input type="submit" value="Confirm" />
-</form>
+<div class="container-md">
+  <div class="card bg-dark">
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        
+        <p class="text-warning ">Are you sure to delete <br><br> " <span class="text-light">{{ object }}</span> "</p>
+        <br><br>
+        
+        <input class="btn btn-primary" type="button" value="Cancel" onclick="window.history.back()" />
+        <input class="btn btn-danger" type="submit" value="Confirm" />
+      </form>
+    </div>
+  </div>
+</div>
 
 {%endblock%}

@@ -1,29 +1,31 @@
-{% extends "base.html" %} {% block content %} 
+{% extends "base.html" %} 
+{% load custom_filters %}
+{% block content %} 
+
 {%if message%} 
 {{message}}
 {%endif%}
 
-<h3>hello {{request.user}}, welcome to the InsightPost!</h3>
+<h1 class="container-md">Hello {{request.user}}, welcome to the InsightPost!</h1>
+<br>
+<br>
 
-<div class="btn">
-  <a href="post">Blog post</a>
-</div>
-<div class="btn">
-  <a href="list">Blog list</a>
-</div>
-{% if user.is_authenticated %}
-<div class="btn">
-  <a href="logout">Logout</a>
-</div>
 
-<div class="btn btn-warning">pass_update</div>
 
-{%else%}
-
-<div class="btn">
-  <a href="register">Registration</a>
+<div class="container-md ">
+  <div class="row">
+      {% for blog in blogs %}
+          <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="card mb-4">
+                  <img style="max-width: 10cm; max-height: 7cm;" src="{{ blog.image.url }}" class="card-img-top" alt="{{ post.title }}">
+                  <div class="card-body">
+                      <h5 class="card-title">{{ blog.title }}</h5>
+                      <!-- <p class="card-text">{{ blog.body | truncate_words:10|safe }}</p> -->
+                      <a href="{% url 'blog_detail' blog.slug %}" class="btn btn-primary">Read More</a>
+                  </div>
+              </div>
+          </div>
+      {% endfor %}
+  </div>
 </div>
-<div class="btn">
-  <a href="login">Login</a>
-</div>
-{%endif%} {%endblock%}
+{%endblock%}
