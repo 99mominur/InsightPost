@@ -38,14 +38,14 @@ class RegistrationView(CreateView):
             user.set_password(form.cleaned_data["password1"])
             user.is_active = True
             user.save()
-            return redirect("../login")
+            return redirect("blog_login")
 
         else:
             return render(request, self.template_name, {"form": form})
 
 
 class UserLoginView(LoginView):
-    template_name = "login.html"
+    template_name = "accounts/registration/login.html"
     form_class = UserLoginForm
 
     def get(self, request):
@@ -62,7 +62,7 @@ class UserLoginView(LoginView):
                 if user.is_active:
                     login(request, user)
                     messages.success(request, "You have successfully logged in.")
-                    return redirect("../")
+                    return redirect("blog_home")
                 else:
                     messages.error(request, "Your account is inactive.")
             else:

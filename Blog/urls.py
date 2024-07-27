@@ -12,5 +12,4 @@ urlpatterns = [
     path("register/", views.RegistrationView.as_view(), name="blog_register"),
     path("login/", views.UserLoginView.as_view(), name="blog_login"),
     path("logout/", views.UserLogoutView.as_view(), name="blog_logout"),
-    
 ]
